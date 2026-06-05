@@ -75,7 +75,7 @@ class ValueBuilder {
 		}
 		if (object instanceof Optional) {
 			final Optional<?> optional = (Optional<?>) object;
-			return optional.map(ValueBuilder::convert).orElse(null);
+			return optional.map(ValueBuilder::convert).orElseGet(ValueMut::createNull);
 		}
 		if (object instanceof Id) {
 			return ValueMut.createId((Id) object);
@@ -126,6 +126,11 @@ class ValueBuilder {
 		} catch (IllegalAccessException e) {
 			throw new SurrealException("Unable to convert object", e);
 		}
+	}
+
+	static Map<String, ValueMut> convertParams(final Map<String, ?> params) {
+		return params.entrySet().stream()
+				.collect(Collectors.toMap(Map.Entry::getKey, entry -> convert(entry.getValue())));
 	}
 
 }

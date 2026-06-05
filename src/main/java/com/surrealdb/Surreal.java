@@ -26,10 +26,6 @@ import com.surrealdb.signin.Token;
  */
 public class Surreal extends Native implements AutoCloseable {
 
-	static {
-		Loader.loadNative();
-	}
-
 	// Current namespace and database set by useNs() / useDb() / useDefaults() (from
 	// server return value).
 	private String namespace;
@@ -507,12 +503,11 @@ public class Surreal extends Native implements AutoCloseable {
 	 * @return a Response object containing the results of the query
 	 */
 	public Response query(String sql, Map<String, ?> params) {
-		Map<String, ValueMut> valueMutMap = params.entrySet().stream()
-				.collect(Collectors.toMap(Map.Entry::getKey, entry -> ValueBuilder.convert(entry.getValue())));
-		String[] keys = valueMutMap.keySet().toArray(new String[0]);
-		long[] values = new long[keys.length];
+		final Map<String, ValueMut> valueMuts = ValueBuilder.convertParams(params);
+		final String[] keys = valueMuts.keySet().toArray(new String[0]);
+		final long[] values = new long[keys.length];
 		for (int i = 0; i < keys.length; i++) {
-			values[i] = valueMutMap.get(keys[i]).getPtr();
+			values[i] = valueMuts.get(keys[i]).getPtr();
 		}
 		return new Response(queryWithBindings(getPtr(), sql, keys, values));
 	}

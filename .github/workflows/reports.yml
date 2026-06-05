@@ -8,9 +8,14 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # required by the Deploy step (peaceiris/actions-gh-pages) on main
 
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
@@ -39,7 +44,7 @@ jobs:
       - name: Start SurrealDB
         uses: surrealdb/setup-surreal@7c103070ba4f544240cd287432ba70d6f50163a5 # v2
         with:
-          surrealdb_version: v3.0.4
+          surrealdb_version: v3.0.5
           surrealdb_port: 8000
           surrealdb_auth: false
           surrealdb_strict: false

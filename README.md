@@ -44,6 +44,7 @@ View the SDK documentation [here](https://surrealdb.com/docs/integration/librari
 - Simple API: [see docs](https://surrealdb.com/docs/integration/libraries/java).
 - Support of 'memory' (embedded SurrealDB).
 - Support of remote connection to SurrealDB.
+- Mutable POJOs (Java 8+) and immutable `record` classes (JDK 16+) for `create` / `select`.
 - Supported on JAVA JDK 8, 11, 17, 21, 25.
 - Supported architectures:
     - Linux (ARM) aarch64
@@ -61,11 +62,15 @@ View the SDK documentation [here](https://surrealdb.com/docs/integration/librari
 
 ## How to install
 
+### Stable release
+
+Released to [Maven Central](https://central.sonatype.com/artifact/com.surrealdb/surrealdb).
+
 Gradle:
 
 ```groovy
 ext {
-    surrealdbVersion = "2.0.1"
+    surrealdbVersion = "2.1.0"
 }
 
 dependencies {
@@ -76,11 +81,53 @@ dependencies {
 Maven:
 
 ```xml
+<dependency>
+    <groupId>com.surrealdb</groupId>
+    <artifactId>surrealdb</artifactId>
+    <version>2.1.0</version>
+</dependency>
+```
+
+### Snapshot release
+
+Published to the [Maven Central snapshots repository](https://central.sonatype.com/repository/maven-snapshots/) on every push to `main`. Use it to try out unreleased changes.
+
+Gradle:
+
+```groovy
+repositories {
+    mavenCentral()
+    maven {
+        url = uri("https://central.sonatype.com/repository/maven-snapshots/")
+        mavenContent { snapshotsOnly() }
+    }
+}
+
+ext {
+    surrealdbVersion = "2.1.1-SNAPSHOT"
+}
+
+dependencies {
+    implementation "com.surrealdb:surrealdb:${surrealdbVersion}"
+}
+```
+
+Maven:
+
+```xml
+<repositories>
+    <repository>
+        <id>central-snapshots</id>
+        <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+        <releases><enabled>false</enabled></releases>
+        <snapshots><enabled>true</enabled></snapshots>
+    </repository>
+</repositories>
 
 <dependency>
     <groupId>com.surrealdb</groupId>
     <artifactId>surrealdb</artifactId>
-    <version>2.0.1</version>
+    <version>2.1.1-SNAPSHOT</version>
 </dependency>
 ```
 

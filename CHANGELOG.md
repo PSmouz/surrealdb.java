@@ -1,5 +1,27 @@
 # Changelog
 
+## [Unreleased]
+
+## [2.1.0] - 2026-06-04
+- Upgrade the native layer to the `jni` crate 0.22.4; the Java/JNI ABI, public API, and JDK 8 minimum are unchanged [#166](https://github.com/surrealdb/surrealdb.java/pull/166).
+- Upgrade to SurrealDB SDK 3.1.3 and bump the Rust toolchain to 1.95 [#165](https://github.com/surrealdb/surrealdb.java/pull/165).
+
+## [2.0.3] - 2026-05-29
+- Support Java `record` classes in `create` and `select` (JDK 16+ at runtime). Records are hydrated via their canonical constructor; POJO behaviour on JDK 8+ is unchanged [#156](https://github.com/surrealdb/surrealdb.java/pull/156).
+- Add `Array.of()` and `Id.from(Object...)` factories for composite keys [#154](https://github.com/surrealdb/surrealdb.java/pull/154).
+- Fix nullable `Boolean` and `Optional<T>` (de)serialization [#155](https://github.com/surrealdb/surrealdb.java/pull/155).
+- Auto-load the native library on first use of any Native-backed POJO [#157](https://github.com/surrealdb/surrealdb.java/pull/157).
+- Avoid spawning a new server session per health/version/export/import call [#161](https://github.com/surrealdb/surrealdb.java/pull/161).
+- Document snapshot installs and auto-publish snapshots from `main` [#158](https://github.com/surrealdb/surrealdb.java/pull/158).
+- Add LiveStream regression tests over WebSocket and `query()` variants [#159](https://github.com/surrealdb/surrealdb.java/pull/159).
+
+## [2.0.2] - 2026-05-20
+- Add Java query binding overloads and transaction bindings [#148](https://github.com/surrealdb/surrealdb.java/pull/148).
+- Enforce spotless/cargo fmt on PRs and scope GITHUB_TOKEN permissions [#150](https://github.com/surrealdb/surrealdb.java/pull/150).
+- Bump rustls-webpki from 0.103.9 to 0.103.13 [#146](https://github.com/surrealdb/surrealdb.java/pull/146).
+- Bump rand from 0.8.5 to 0.8.6 [#145](https://github.com/surrealdb/surrealdb.java/pull/145).
+- Bump lz4_flex from 0.12.0 to 0.12.1 [#144](https://github.com/surrealdb/surrealdb.java/pull/144).
+
 ## [2.0.1] - 2026-04-28
 - Upgrade to SurrealDB SDK 3.0.5.
 - Fix JVM crash when accessing array-backed RecordId keys [#141](https://github.com/surrealdb/surrealdb.java/pull/141).
